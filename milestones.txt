@@ -1,0 +1,11 @@
+1.
+Webui mit suchfunktion und playlist
+mediendatenbank mit medienpfad und metainformationen
+mediendateien in medienpfaden suchen und metainformationen in Datenbank einpflegen
+Playlist erstellen
+Medien in Playlist abspielen und konstrollieren
+Pluginstruktur für Medienplayer
+
+2.
+Administrationstool zum medienpfade hinzufügen
+Playlist speichern und laden
