@@ -4,6 +4,9 @@ from sqlalchemy.orm import sessionmaker, relationship, backref
 import sys
 import subprocess, json
 
+#############################################################################
+## Database Schema Definition                                              ##
+#############################################################################
 
 Base = declarative_base()
 
@@ -41,7 +44,7 @@ class Song(Base):
 	year         = Column('year', Integer(unsigned=True))
 	tracknumber  = Column('tracknumber', Integer(unsigned=True))
 	times_played = Column('times_played', Integer(unsigned=True))
-	uri          = Column('path', String(2**16), nullable=False)
+	uri          = Column('uri', String(2**16), nullable=False)
 	genre        = Column('genre', String(255))
 	artist_id    = Column('artist_id', None, ForeignKey('music_artist.id'))
 	album_id     = Column('album_id', None, ForeignKey('music_album.id'))
@@ -52,6 +55,11 @@ class Song(Base):
 	def __repr__(self):
 		return '<Song(id=%i, title="%s", artist_id=%i)>' % \
 			(self.id, self.title, self.artist_id)
+
+
+#############################################################################
+## Extract data from file                                                  ##
+#############################################################################
 
 def insert_song(uri):
 	# TODO: Catch and handle errors
@@ -98,8 +106,12 @@ def insert_song(uri):
 	return song
 
 
+#############################################################################
+## Main program                                                            ##
+#############################################################################
+
 if __name__ == '__main__':
-	DATABASE = 'sqlite:///data.sqlite'
+	#DATABASE = 'sqlite:///data.sqlite'
 	DATABASE = 'mysql://ess:secret@localhost/ess'
 	engine = create_engine(DATABASE, echo=True)
 	Base.metadata.create_all(engine)
@@ -111,5 +123,4 @@ if __name__ == '__main__':
 		session = Session()
 		insert_song('http://storage-new.newjamendo.com/download/track/1093987/mp32')
 		insert_song('http://storage-new.newjamendo.com/download/track/1107409/mp32')
-
 		session.commit()
